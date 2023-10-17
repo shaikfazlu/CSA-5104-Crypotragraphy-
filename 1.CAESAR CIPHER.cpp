@@ -1,29 +1,25 @@
 #include <stdio.h>
 #include <string.h>
-int main() {
-    int i, key,n,encrypted_text;
-    char s[1000], c;
-    printf("Enter encrypted text:\n");
-    scanf("%s",&s);
-    printf("Enter key:\n");
-    scanf("%d", &key);
-    n = strlen(s);
-    for (i = 0; i < n; i++) {
-        c = s[i];
-        if (c >= 'a' && c <= 'z') {
-            c = c - key;
-            if (c < 'a') {
-                c = c + 'z' - 'a' + 1;
-            }
-            s[i] = c;
-        } else if (c >= 'A' && c <= 'Z') {
-            c = c - key;
-            if (c < 'A') {
-                c = c + 'Z' - 'A' + 1;
-            }
-            s[i] = c;
+// Function to perform Caesar cipher encryption
+void encryptCaesarCipher(char text[], int shift) {
+    int i;
+    for (i = 0; i < strlen(text); i++) {
+        if (text[i] >= 'A' && text[i] <= 'Z') {
+            text[i] = (text[i] + shift - 'A') % 26 + 'A';
+        }
+        else if (text[i] >= 'a' && text[i] <= 'z') {
+            text[i] = (text[i] + shift - 'a') % 26 + 'a';
         }
     }
-printf("Decrypted message: %s\n", s);
-return 0;
+}
+int main() {
+    char text[100];
+    int shift;
+    printf("Enter text to be encrypted: ");
+    scanf("%[^\n]s", text);
+    printf("Enter the shift value: ");
+    scanf("%d", &shift);
+    encryptCaesarCipher(text, shift);
+    printf("Encrypted text: %s\n", text);
+    return 0;
 }
